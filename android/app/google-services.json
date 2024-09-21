@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "608493641447",
+    "project_id": "lingopandaround2",
+    "storage_bucket": "lingopandaround2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:608493641447:android:33945887c648bfa0174c42",
+        "android_client_info": {
+          "package_name": "com.example.lingopanda_ecom_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCg9Q80QY2Or0TmLCc8pJrpUAqr_afdDNs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

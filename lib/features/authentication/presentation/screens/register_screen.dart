@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -5,32 +6,35 @@ import 'package:lingopanda_ecom_app/Constants/colors.dart';
 import 'package:lingopanda_ecom_app/Constants/constants.dart';
 import 'package:lingopanda_ecom_app/app_utils/common_widgets.dart';
 import 'package:lingopanda_ecom_app/features/authentication/presentation/controllers/auth_controller.dart';
-import 'package:lingopanda_ecom_app/features/authentication/presentation/screens/register_screen.dart';
+import 'package:lingopanda_ecom_app/features/authentication/presentation/screens/login_screen.dart';
 import 'package:provider/provider.dart';
 
-class LoginScreen extends StatefulWidget{
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget{
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
 
-  GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> registerFormKey = GlobalKey<FormState>();
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
 
   final FocusNode _emailFocusNode = FocusNode();
   final FocusNode _passwordFocusNode = FocusNode();
+  final FocusNode _nameFocusNode = FocusNode();
 
-  _navigateToRegisterPage(){
-    loginFormKey.currentState!.reset();
+  _navigateToLoginPage(){
+    registerFormKey.currentState!.reset();
     emailController.clear();
     passwordController.clear();
-    Provider.of<AuthController>(context, listen: false).clearLoginForm();
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const RegisterScreen(),));
+    nameController.clear();
+    Provider.of<AuthController>(context, listen: false).clearRegisterForm();
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const LoginScreen(),));
   }
 
   @override
@@ -46,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             decoration: const BoxDecoration(
-              color: AppColors.backgroundColor
+                color: AppColors.backgroundColor
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -65,25 +69,25 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Widget _header() {
     return Container(
-      width: double.infinity,
-      height: 40.h,
-      color: AppColors.backgroundColor,
-      padding: EdgeInsets.only(left: 15.w,),
-      margin: EdgeInsets.only(top: 20.h),
-      alignment: Alignment.centerLeft,
-      child: commonText(
-        text: Constants.APP_NAME,
-        fontSize: 26.sp,
-        fontWeight: FontWeight.w600,
-        textColor: AppColors.blueColor
-      )
+        width: double.infinity,
+        height: 40.h,
+        color: AppColors.backgroundColor,
+        padding: const EdgeInsets.only(left: 15,),
+        margin: EdgeInsets.only(top: 20.h),
+        alignment: Alignment.centerLeft,
+        child: commonText(
+            text: Constants.APP_NAME,
+            fontSize: 26.sp,
+            fontWeight: FontWeight.w600,
+            textColor: AppColors.blueColor
+        )
     );
   }
 
   Widget _loginForm() {
     return Consumer<AuthController>(
       builder: (context, provider, child) =>  Form(
-        key: loginFormKey,
+        key: registerFormKey,
         child: Container(
           width: double.infinity,
           padding: EdgeInsets.only(left: 30.w, right: 30.w),
@@ -91,21 +95,30 @@ class _LoginScreenState extends State<LoginScreen> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               TextInput(
-                text: 'Email',
-                controller: emailController,
-                error: provider.emailError,
-                removeError: () => provider.setEmailError(null),
-                focusNode: _emailFocusNode,
-                showPassword: false
+                  text: 'Name',
+                  controller: nameController,
+                  error: provider.nameError,
+                  removeError: () => provider.setNameError(null),
+                  focusNode: _nameFocusNode,
+                  showPassword: false
               ),
               20.ph,
               TextInput(
-                text: 'Password',
-                controller: passwordController,
-                error: provider.passwordError ,
-                removeError: () => provider.setPasswordError(null),
-                focusNode: _passwordFocusNode,
-                showPassword: false
+                  text: 'Email',
+                  controller: emailController,
+                  error: provider.emailError,
+                  removeError: () => provider.setEmailError(null),
+                  focusNode: _emailFocusNode,
+                  showPassword: false
+              ),
+              20.ph,
+              TextInput(
+                  text: 'Password',
+                  controller: passwordController,
+                  error: provider.passwordError ,
+                  removeError: () => provider.setPasswordError(null),
+                  focusNode: _passwordFocusNode,
+                  showPassword: false
               )
             ],
           ),
@@ -126,8 +139,8 @@ class _LoginScreenState extends State<LoginScreen> {
             builder: (context, provider, child) =>  commonButton(
               width: double.infinity,
               height: 50.h,
-              text: 'Login',
-              formKey: loginFormKey,
+              text: 'Signup',
+              formKey: registerFormKey,
               onPressed: () async {
                 // _loginUser();
               },
@@ -142,20 +155,20 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               children: <TextSpan>[
                 const TextSpan(
-                  text: "New here? ",
+                  text: "Already have an account? ",
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
                 TextSpan(
-                    text: "Signup",
+                    text: "Login",
                     style: const TextStyle(
                       color: AppColors.blueColor,
                       fontWeight: FontWeight.bold,
                     ),
                     recognizer: TapGestureRecognizer()
-                      ..onTap = _navigateToRegisterPage
+                      ..onTap = _navigateToLoginPage
                 )
               ],
             ),

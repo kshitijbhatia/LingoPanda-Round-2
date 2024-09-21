@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyAK1FUSgRMO40MyRyXhabCdD-Rgf9l7J3I</string>
+	<key>GCM_SENDER_ID</key>
+	<string>608493641447</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.lingopandaEcomApp</string>
+	<key>PROJECT_ID</key>
+	<string>lingopandaround2</string>
+	<key>STORAGE_BUCKET</key>
+	<string>lingopandaround2.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:608493641447:ios:6295cb4a1a61aa33174c42</string>
+</dict>
+</plist>
