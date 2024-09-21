@@ -89,7 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
           padding: EdgeInsets.only(left: 30.w, right: 30.w),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: [
+            children: [ 
               TextInput(
                 text: 'Email',
                 controller: emailController,
