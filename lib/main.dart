@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lingopanda_ecom_app/features/authentication/presentation/controllers/auth_controller.dart';
 import 'package:lingopanda_ecom_app/features/authentication/presentation/screens/login_screen.dart';
+import 'package:lingopanda_ecom_app/features/authentication/presentation/screens/register_screen.dart';
+import 'package:lingopanda_ecom_app/features/products/presentation/screens/product_page.dart';
 import 'package:lingopanda_ecom_app/firebase_options.dart';
 import 'package:provider/provider.dart';
+
+final navigatorKey = GlobalKey<NavigatorState>();
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,10 +32,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      builder: (context, child) =>  const MaterialApp(
+      builder: (context, child) =>  MaterialApp(
         title: 'LingoPandaRound2',
         debugShowCheckedModeBanner: false,
-        home: LoginScreen(),
+        navigatorKey: navigatorKey,
+        routes: {
+          '/login' : (context) => const LoginScreen(),
+          '/register' : (context) => const RegisterScreen(),
+          '/home': (context) => const ProductPage()
+        },
+        home: const LoginScreen(),
       ),
     );
   }

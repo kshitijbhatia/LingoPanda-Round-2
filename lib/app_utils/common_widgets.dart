@@ -72,15 +72,16 @@ Widget TextInput({
       },
       obscureText: text == "Password" && !showPassword ? true : false,
       onChanged: (value) => removeError(),
-      // style : AppTheme.getStyle(
-      //   color: Colors.black,
-      //   fs: 16,
-      //   fw: FontWeight.w200,
-      // ),
+      style : TextStyle(
+        color: Colors.black,
+        fontSize: 16.sp,
+        fontWeight: FontWeight.w400
+      ),
       decoration: InputDecoration(
           errorText: error,
           labelText: text,
           filled: true,
+          errorMaxLines: 3,
           fillColor: Colors.white,
           labelStyle: const TextStyle(
             color: Colors.black,
@@ -127,6 +128,7 @@ Widget TextInput({
       )
   );
 }
+
 
 extension EmptyPadding on num {
   SizedBox get ph => SizedBox(

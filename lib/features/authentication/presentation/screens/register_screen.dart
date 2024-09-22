@@ -56,8 +56,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _header(),
-                _loginForm(),
-                _loginSubmit()
+                (Provider.of<AuthController>(context).loading == false) ? _registerForm() : _registerInProgress(),
+                _registerSubmit()
               ],
             ),
           ),
@@ -84,7 +84,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  Widget _loginForm() {
+  Widget _registerForm() {
     return Consumer<AuthController>(
       builder: (context, provider, child) =>  Form(
         key: registerFormKey,
@@ -127,7 +127,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-  Widget _loginSubmit() {
+  Widget _registerSubmit() {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(bottom: 25.h),
@@ -142,7 +142,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               text: 'Signup',
               formKey: registerFormKey,
               onPressed: () async {
-                // _loginUser();
+                provider.signup(name: nameController.text, email: emailController.text, password: passwordController.text);
               },
             ),
           ),
@@ -174,6 +174,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _registerInProgress(){
+    return Container(
+      color: AppColors.backgroundColor,
+      alignment: Alignment.center,
+      child: Container(
+        width: 35.w,
+        height: 30.h,
+        child: const CircularProgressIndicator(color: AppColors.blueColor,),
       ),
     );
   }

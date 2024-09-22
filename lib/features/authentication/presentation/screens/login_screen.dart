@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lingopanda_ecom_app/Constants/colors.dart';
 import 'package:lingopanda_ecom_app/Constants/constants.dart';
 import 'package:lingopanda_ecom_app/app_utils/common_widgets.dart';
+import 'package:lingopanda_ecom_app/features/authentication/domain/authentication_error.dart';
 import 'package:lingopanda_ecom_app/features/authentication/presentation/controllers/auth_controller.dart';
 import 'package:lingopanda_ecom_app/features/authentication/presentation/screens/register_screen.dart';
 import 'package:provider/provider.dart';
@@ -52,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _header(),
-                _loginForm(),
+                (Provider.of<AuthController>(context).loading == false) ? _loginForm() : _loginInProgress(),
                 _loginSubmit()
               ],
             ),
@@ -89,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
           padding: EdgeInsets.only(left: 30.w, right: 30.w),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
-            children: [ 
+            children: [
               TextInput(
                 text: 'Email',
                 controller: emailController,
@@ -129,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen> {
               text: 'Login',
               formKey: loginFormKey,
               onPressed: () async {
-                // _loginUser();
+                await provider.login(email: emailController.text, password: passwordController.text);
               },
             ),
           ),
@@ -161,6 +162,18 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _loginInProgress(){
+    return Container(
+      color: AppColors.backgroundColor,
+      alignment: Alignment.center,
+      child: Container(
+        width: 35.w,
+        height: 30.h,
+        child: const CircularProgressIndicator(color: AppColors.blueColor,),
       ),
     );
   }
