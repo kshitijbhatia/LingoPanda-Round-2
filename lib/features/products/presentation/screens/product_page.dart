@@ -79,6 +79,7 @@ class _ProductPageState extends State<ProductPage> {
     return Container(
       color: AppColors.backgroundColor,
         child: RefreshIndicator(
+          color: AppColors.blueColor,
           onRefresh: () async {
             await context.read<ProductController>().getAllProducts();
           },
