@@ -109,35 +109,39 @@ class _ProductPageState extends State<ProductPage> {
     return Container(
       height: 260.h,
       margin: EdgeInsets.only(bottom: 5.h, left: 8.w, right: 8.w, top: 20.h),
-      padding: EdgeInsets.only(left: 5.w, right: 5.w),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12.r)
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           _productImage(image: product.images[0]),
-          15.ph,
-          Align(
+          Container(
+            padding: EdgeInsets.only(left: 5.w, right: 5.w),
             alignment: Alignment.topLeft,
             child: commonText(text: product.title, fontWeight: FontWeight.w600, textColor: Colors.black, fontSize: 12.sp),
           ),
-          10.ph,
-          commonText(text: product.description, fontWeight: FontWeight.w400, textColor: Colors.black, fontSize: 12.sp, maxLines: 2, overflow: TextOverflow.ellipsis),
-          10.ph,
-          Row(
-            children: [
-              commonText(text: "\$${product.price}", fontSize: 10.sp, textDecoration: showDiscount ? TextDecoration.lineThrough : null, textColor: showDiscount ? AppColors.greyColor : null),
-              5.pw,
-              showDiscount ? Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  commonText(text: "\$$discountedPrice", fontSize: 10.sp),
-                  4.pw,
-                  commonText(text: "${product.discountPercentage}% off", textColor: Colors.green, fontSize: 10.sp)
-                ],
-              ) : 0.pw
-            ],
+          Container(
+            padding: EdgeInsets.only(left: 5.w, right: 5.w),
+            child: commonText(text: product.description, fontWeight: FontWeight.w400, textColor: Colors.black, fontSize: 12.sp, maxLines: 2, overflow: TextOverflow.ellipsis),
+          ),
+          Container(
+            margin: EdgeInsets.only(bottom: 4.h, left: showDiscount ? 2.w : 6.w),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                commonText(text: "\$${product.price} ", fontSize: 10.sp, textDecoration: showDiscount ? TextDecoration.lineThrough : null, textColor: showDiscount ? AppColors.greyColor : null),
+                showDiscount ? Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    commonText(text: "\$$discountedPrice ", fontSize: 10.sp),
+                    commonText(text: "${product.discountPercentage}% off", textColor: Colors.green, fontSize: 10.sp)
+                  ],
+                ) : 0.pw
+              ],
+            ),
           )
         ],
       ),
@@ -209,8 +213,8 @@ class _ProductPageState extends State<ProductPage> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(12.r)
                     ),
-                    height: 260.h,
-                    margin: EdgeInsets.only(bottom: 5.h, left: 8.w, right: 8.w, top: 20.h),
+                    height: 250.h,
+                    margin: EdgeInsets.only(bottom: 10.h, left: 8.w, right: 8.w, top: 20.h),
                   ),
                 );
               },)

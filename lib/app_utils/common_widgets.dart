@@ -36,6 +36,7 @@ Widget commonButton({
   required double width,
   required double height,
   Color? buttonColor,
+  EdgeInsetsGeometry? margin
 }){
   return GestureDetector(
     onTap: (){
@@ -46,6 +47,7 @@ Widget commonButton({
     child: Container(
       width: width,
       height: height,
+      margin: margin,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.r),
         color: buttonColor ?? AppColors.blueColor
@@ -76,7 +78,7 @@ Widget TextInput({
         }
         return null;
       },
-      obscureText: text == "Password" && !showPassword ? true : false,
+      obscureText: text == "Password" ? true : false,
       onChanged: (value) => removeError(),
       style : TextStyle(
         color: Colors.black,
@@ -116,21 +118,6 @@ Widget TextInput({
             fontSize: 14,
             fontWeight: FontWeight.w500,
           ),
-          // suffixIcon: text == "Password"
-          //     ? IconButton(
-          //   onPressed: _changePasswordVisibility,
-          //   icon: _showPassword
-          //       ? const Icon(Icons.visibility, size: 20,)
-          //       : const Icon(Icons.visibility_off, size: 20,),)
-          //     : (widget.controller.text.isNotEmpty
-          //     ? IconButton(
-          //   onPressed: (){
-          //     widget.controller.text = "";
-          //     widget.removeError();
-          //   },
-          //   icon: const Icon(Icons.close, size: 20,),
-          // ) : null
-          // )
       )
   );
 }

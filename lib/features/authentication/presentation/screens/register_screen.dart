@@ -142,7 +142,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
           Consumer<AuthController>(
             builder: (context, provider, child) =>  commonButton(
               width: double.infinity,
-              height: 50.h,
+              height: 45.h,
+              margin: EdgeInsets.symmetric(horizontal: 40.w),
               text: 'Signup',
               formKey: registerFormKey,
               onPressed: () async {

@@ -7,26 +7,27 @@ class FirebaseRemoteConfigService{
 
   static bool get getShowDiscount => _remoteConfig.getBool(Constants.APPLY_DISCOUNT);
 
-  static Future<void> _setConfigSettings() async {
-    final remoteConfig = FirebaseRemoteConfig.instance;
-    await remoteConfig.setConfigSettings(
-        RemoteConfigSettings(
-          fetchTimeout: const Duration(minutes: 1),
-          minimumFetchInterval: const Duration(seconds: 1),
-        )
-    );
-  }
-
-  static Future<void> fetchAndActivate() async {
-    bool updated = await _remoteConfig.fetchAndActivate();
-    if(updated){
-      log('Discount_changed');
+  static Future<void> initialize() async {
+    try{
+      final remoteConfig = FirebaseRemoteConfig.instance;
+      await remoteConfig.setConfigSettings(RemoteConfigSettings(
+        fetchTimeout: const Duration(minutes: 1),
+        minimumFetchInterval: const Duration(seconds: 1),
+      ));
+    }catch(error){
+      log("error_initialising_remote_config : $error");
     }
   }
 
-  static Future<void> initialize() async {
-    await _setConfigSettings();
-    await fetchAndActivate();
+  static Future<void> fetchAndActivate() async {
+    try{
+      bool updated = await _remoteConfig.fetchAndActivate();
+      if (updated) {
+        log('Discount_changed');
+      }
+    }catch(error){
+      log("error_fetching_remote_config : $error");
+    }
   }
 }
 
