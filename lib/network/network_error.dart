@@ -73,7 +73,7 @@ CustomError handleError(dynamic error){
     customError = customError.copyWith(
       message: error.message!,
       errorType: "toast",
-      description: error.message!
+      description: "Please check your internet connection!"
     );
   }
   return customError;

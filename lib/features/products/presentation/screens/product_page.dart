@@ -9,6 +9,7 @@ import 'package:lingopanda_ecom_app/features/products/domain/product.dart';
 import 'package:lingopanda_ecom_app/features/products/presentation/controllers/product_provider.dart';
 import 'package:lingopanda_ecom_app/main.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ProductPage extends StatefulWidget{
   const ProductPage({super.key});
@@ -22,29 +23,25 @@ class _ProductPageState extends State<ProductPage> {
   bool showDiscount = true;
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<ProductController>().getAllProducts();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+
+    bool loading = context.watch<ProductController>().loading;
+    bool hasError = context.watch<ProductController>().hasError;
+    List<Product> products = context.watch<ProductController>().products;
+
     return WillPopScope(
       onWillPop: () => Future.value(false),
       child: Scaffold(
         appBar: _appBar(),
-        body: FutureBuilder(
-          future: Provider.of<ProductController>(context).getAllProducts(),
-          builder: (context, snapshot) {
-            if(snapshot.hasData){
-              final products = snapshot.data;
-              return _bodyView(products: products!);
-            }else if(snapshot.hasError){
-              return Container(
-                alignment: Alignment.center,
-                child: commonText(text: "Error Occurred!!"),
-              );
-            }else{
-              return Container(
-                child: CircularProgressIndicator(),
-              );
-            }
-          },
-        )
+        body:  loading ? _loadingView() : (hasError ? _errorView() : _bodyView(products: products))
       ),
     );
   }
@@ -185,6 +182,65 @@ class _ProductPageState extends State<ProductPage> {
           child: const Icon(Icons.error),
         );
       },
+    );
+  }
+
+  Widget _loadingView(){
+    return Container(
+      color: AppColors.backgroundColor,
+      child: Shimmer.fromColors(
+        baseColor: Colors.grey,
+        highlightColor: Colors.white,
+        child: ListView.builder(
+          itemCount: 12,
+          itemBuilder: (context, index) {
+            return Row(
+              children: List.generate(2, (index) {
+                return Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12.r)
+                    ),
+                    height: 260.h,
+                    margin: EdgeInsets.only(bottom: 5.h, left: 8.w, right: 8.w, top: 20.h),
+                  ),
+                );
+              },)
+            );
+          },
+        ),
+      )
+    );
+  }
+
+  Widget _errorView(){
+    return Container(
+      color: AppColors.backgroundColor,
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          commonText(text: "Error Occurred!!"),
+          20.ph,
+          GestureDetector(
+            onTap: () async {
+              await context.read<ProductController>().getAllProducts();
+            },
+            child: Container(
+              height: 40.h,
+              margin: EdgeInsets.symmetric(horizontal: 120.w),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(14.r),
+                color: AppColors.blueColor
+              ),
+              alignment: Alignment.center,
+              child: commonText(text: "Retry", textColor: Colors.white),
+            ),
+          )
+        ],
+      )
     );
   }
 }
