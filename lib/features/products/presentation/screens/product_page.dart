@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lingopanda_ecom_app/Constants/colors.dart';
 import 'package:lingopanda_ecom_app/Constants/constants.dart';
@@ -19,8 +20,6 @@ class ProductPage extends StatefulWidget{
 }
 
 class _ProductPageState extends State<ProductPage> {
-
-  bool showDiscount = true;
 
   @override
   void initState() {
@@ -64,6 +63,7 @@ class _ProductPageState extends State<ProductPage> {
             ),
             GestureDetector(
               onTap: (){
+                HapticFeedback.lightImpact();
                 AppUtils.logout();
                 navigatorKey.currentState!.pushNamed('/login');
               },
@@ -78,26 +78,33 @@ class _ProductPageState extends State<ProductPage> {
   Widget _bodyView({required List<Product> products}){
     return Container(
       color: AppColors.backgroundColor,
-        child: ListView.builder(
-          itemCount: (products.length + 1) ~/ 2,
-          itemBuilder: (context, index) {
-            final product1 = products[index * 2];
-            final product2 = (index * 2 + 1 < products.length) ? products[index * 2 + 1] : null;
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Expanded(child: _productCard(product: product1)),
-                if (product2 != null) Expanded(child: _productCard(product: product2)),
-              ],
-            );
+        child: RefreshIndicator(
+          onRefresh: () async {
+            await context.read<ProductController>().getAllProducts();
           },
+          child: ListView.builder(
+            itemCount: (products.length + 1) ~/ 2,
+            itemBuilder: (context, index) {
+              final product1 = products[index * 2];
+              final product2 = (index * 2 + 1 < products.length) ? products[index * 2 + 1] : null;
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Expanded(child: _productCard(product: product1)),
+                  if (product2 != null) Expanded(child: _productCard(product: product2)),
+                ],
+              );
+            },
+          ),
         ),
     );
   }
 
   Widget _productCard({required Product product}){
 
+    bool showDiscount = context.read<ProductController>().showDiscounts;
     String discountedPrice = AppUtils.getDiscountedPrice(discount: product.discountPercentage, originalPrice: product.price);
+
 
     return Container(
       height: 260.h,

@@ -6,4 +6,5 @@ class Constants{
   static const String USER_ID = "userID";
   static const String USER_NAME = "userName";
   static const String USER_EMAIL = "userEmail";
+  static const String APPLY_DISCOUNT = "show_discount";
 }

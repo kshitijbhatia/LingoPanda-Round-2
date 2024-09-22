@@ -1,10 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show HapticFeedback;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lingopanda_ecom_app/Constants/colors.dart';
 import 'package:lingopanda_ecom_app/Constants/constants.dart';
 import 'package:lingopanda_ecom_app/app_utils/common_widgets.dart';
-import 'package:lingopanda_ecom_app/features/authentication/domain/authentication_error.dart';
 import 'package:lingopanda_ecom_app/features/authentication/presentation/controllers/auth_controller.dart';
 import 'package:lingopanda_ecom_app/features/authentication/presentation/screens/register_screen.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final FocusNode _passwordFocusNode = FocusNode();
 
   _navigateToRegisterPage(){
+    HapticFeedback.lightImpact();
     loginFormKey.currentState!.reset();
     emailController.clear();
     passwordController.clear();
@@ -36,6 +37,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    final bool isLoading = context.watch<AuthController>().loading;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -53,8 +57,8 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _header(),
-                (Provider.of<AuthController>(context).loading == false) ? _loginForm() : _loginInProgress(),
-                _loginSubmit()
+                isLoading == false ? _loginForm() : _loginInProgress(),
+                isLoading == false ? _loginSubmit() : 0.pw
               ],
             ),
           ),

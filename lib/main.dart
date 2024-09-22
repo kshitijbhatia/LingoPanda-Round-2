@@ -8,6 +8,7 @@ import 'package:lingopanda_ecom_app/features/authentication/presentation/screens
 import 'package:lingopanda_ecom_app/features/products/presentation/controllers/product_provider.dart';
 import 'package:lingopanda_ecom_app/features/products/presentation/screens/product_page.dart';
 import 'package:lingopanda_ecom_app/firebase_options.dart';
+import 'package:lingopanda_ecom_app/network/remote_config.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,11 +17,13 @@ SharedPreferences? sharedPreferences;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp(
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
   sharedPreferences = await SharedPreferences.getInstance();
+
+  await FirebaseRemoteConfigService.initialize();
 
   runApp(
     MultiProvider(

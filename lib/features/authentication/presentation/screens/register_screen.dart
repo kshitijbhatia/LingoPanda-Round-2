@@ -1,6 +1,6 @@
-import 'dart:developer';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show HapticFeedback;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lingopanda_ecom_app/Constants/colors.dart';
 import 'package:lingopanda_ecom_app/Constants/constants.dart';
@@ -29,6 +29,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final FocusNode _nameFocusNode = FocusNode();
 
   _navigateToLoginPage(){
+    HapticFeedback.lightImpact();
     registerFormKey.currentState!.reset();
     emailController.clear();
     passwordController.clear();
@@ -39,6 +40,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    final bool isLoading = context.watch<AuthController>().loading;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -56,8 +60,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _header(),
-                (Provider.of<AuthController>(context).loading == false) ? _registerForm() : _registerInProgress(),
-                _registerSubmit()
+                isLoading == false ? _registerForm() : _registerInProgress(),
+                isLoading == false ? _registerSubmit() : 0.pw
               ],
             ),
           ),

@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' show UserCredential;
 import 'package:lingopanda_ecom_app/Constants/constants.dart';
 import 'package:lingopanda_ecom_app/features/authentication/data/authentication_api.dart';
@@ -37,15 +38,18 @@ class AuthenticationRepo {
 
   static Future<User> signup({required String name, required String email, required String password}) async {
     try{
-      final UserCredential response = await AuthenticationApi.signup(name: name, email: email, password: password);
+      final UserCredential response = await AuthenticationApi.signup(name: name.trim(), email: email.trim(), password: password.trim());
 
       final Map<String, dynamic> json = {
-        'uid' : response.user!.uid,
         'name' : name,
         'email' : response.user!.email,
         'createdOn' : response.user!.metadata.creationTime.toString(),
       };
 
+      final CollectionReference users = FirebaseFirestore.instance.collection('user');
+      await users.doc(response.user!.uid).set(json);
+
+      json['uid'] = response.user!.uid;
       final User user = User.fromJson(json);
 
       sharedPreferences!.setBool(Constants.USER_LOGGED_IN, true);
