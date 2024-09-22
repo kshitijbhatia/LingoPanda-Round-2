@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lingopanda_ecom_app/features/authentication/presentation/controllers/auth_controller.dart';
 import 'package:lingopanda_ecom_app/features/authentication/presentation/screens/login_screen.dart';
 import 'package:lingopanda_ecom_app/features/authentication/presentation/screens/register_screen.dart';
+import 'package:lingopanda_ecom_app/features/products/presentation/controllers/product_provider.dart';
 import 'package:lingopanda_ecom_app/features/products/presentation/screens/product_page.dart';
 import 'package:lingopanda_ecom_app/firebase_options.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +20,8 @@ void main() {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<AuthController>(create: (context) => AuthController(),)
+        ChangeNotifierProvider<AuthController>(create: (context) => AuthController(),),
+        ChangeNotifierProvider<ProductController>(create: (context) => ProductController())
       ],
       child: const MyApp(),
     ),

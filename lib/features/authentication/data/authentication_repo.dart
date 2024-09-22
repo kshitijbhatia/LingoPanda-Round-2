@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart' show UserCredential;
 import 'package:lingopanda_ecom_app/features/authentication/data/authentication_api.dart';
 import 'package:lingopanda_ecom_app/features/authentication/domain/authentication_error.dart';
 import 'package:lingopanda_ecom_app/features/authentication/domain/user.dart';
-import 'package:lingopanda_ecom_app/network/network_provider.dart';
+import 'package:lingopanda_ecom_app/network/network_error.dart';
 
 class AuthenticationRepo {
 
@@ -21,7 +21,7 @@ class AuthenticationRepo {
       final User user = User.fromJson(json);
       return user;
     }catch(error){
-      AuthError authError = handleError(error);
+      CustomError authError = handleError(error);
       log("***error_repo : $error");
       throw authError;
     }
@@ -41,7 +41,7 @@ class AuthenticationRepo {
       final User user = User.fromJson(json);
       return user;
     }catch(error){
-      AuthError authError = handleError(error);
+      CustomError authError = handleError(error);
       log("***error_repo : $error");
       throw authError;
     }

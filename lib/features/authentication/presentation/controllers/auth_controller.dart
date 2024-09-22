@@ -58,7 +58,7 @@ class AuthController extends ChangeNotifier{
       notifyListeners();
       final User response =  await AuthenticationRepo.login(email: email, password: password);
       navigatorKey.currentState?.pushNamed('/home');
-    } on AuthError catch(error){
+    } on CustomError catch(error){
       if(error.errorType == "email"){
         setEmailError(error.description);
       }else if(error.errorType == "password"){
@@ -82,7 +82,7 @@ class AuthController extends ChangeNotifier{
       notifyListeners();
       final User response =  await AuthenticationRepo.signup(name: name, email: email, password: password);
       navigatorKey.currentState?.pushNamed('/home');
-    }on AuthError catch(error){
+    }on CustomError catch(error){
       if(error.errorType == "email"){
         setEmailError(error.description);
       }else if(error.errorType == "password"){

@@ -142,7 +142,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
               text: 'Signup',
               formKey: registerFormKey,
               onPressed: () async {
-                provider.signup(name: nameController.text, email: emailController.text, password: passwordController.text);
+                if(provider.loading == false){
+                  provider.signup(
+                      name: nameController.text,
+                      email: emailController.text,
+                      password: passwordController.text);
+                }
               },
             ),
           ),

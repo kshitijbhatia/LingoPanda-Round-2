@@ -130,7 +130,9 @@ class _LoginScreenState extends State<LoginScreen> {
               text: 'Login',
               formKey: loginFormKey,
               onPressed: () async {
-                await provider.login(email: emailController.text, password: passwordController.text);
+                if(provider.loading == false){
+                  await provider.login(email: emailController.text, password: passwordController.text);
+                }
               },
             ),
           ),

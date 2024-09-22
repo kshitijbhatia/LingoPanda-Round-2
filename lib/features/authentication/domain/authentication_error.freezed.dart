@@ -15,30 +15,31 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$AuthError {
+mixin _$CustomError {
   int get statusCode => throw _privateConstructorUsedError;
   String get message => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get errorType => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $AuthErrorCopyWith<AuthError> get copyWith =>
+  $CustomErrorCopyWith<CustomError> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $AuthErrorCopyWith<$Res> {
-  factory $AuthErrorCopyWith(AuthError value, $Res Function(AuthError) then) =
-      _$AuthErrorCopyWithImpl<$Res, AuthError>;
+abstract class $CustomErrorCopyWith<$Res> {
+  factory $CustomErrorCopyWith(
+          CustomError value, $Res Function(CustomError) then) =
+      _$CustomErrorCopyWithImpl<$Res, CustomError>;
   @useResult
   $Res call(
       {int statusCode, String message, String description, String errorType});
 }
 
 /// @nodoc
-class _$AuthErrorCopyWithImpl<$Res, $Val extends AuthError>
-    implements $AuthErrorCopyWith<$Res> {
-  _$AuthErrorCopyWithImpl(this._value, this._then);
+class _$CustomErrorCopyWithImpl<$Res, $Val extends CustomError>
+    implements $CustomErrorCopyWith<$Res> {
+  _$CustomErrorCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -75,11 +76,11 @@ class _$AuthErrorCopyWithImpl<$Res, $Val extends AuthError>
 }
 
 /// @nodoc
-abstract class _$$AuthErrorImplCopyWith<$Res>
-    implements $AuthErrorCopyWith<$Res> {
-  factory _$$AuthErrorImplCopyWith(
-          _$AuthErrorImpl value, $Res Function(_$AuthErrorImpl) then) =
-      __$$AuthErrorImplCopyWithImpl<$Res>;
+abstract class _$$CustomErrorImplCopyWith<$Res>
+    implements $CustomErrorCopyWith<$Res> {
+  factory _$$CustomErrorImplCopyWith(
+          _$CustomErrorImpl value, $Res Function(_$CustomErrorImpl) then) =
+      __$$CustomErrorImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -87,11 +88,11 @@ abstract class _$$AuthErrorImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$AuthErrorImplCopyWithImpl<$Res>
-    extends _$AuthErrorCopyWithImpl<$Res, _$AuthErrorImpl>
-    implements _$$AuthErrorImplCopyWith<$Res> {
-  __$$AuthErrorImplCopyWithImpl(
-      _$AuthErrorImpl _value, $Res Function(_$AuthErrorImpl) _then)
+class __$$CustomErrorImplCopyWithImpl<$Res>
+    extends _$CustomErrorCopyWithImpl<$Res, _$CustomErrorImpl>
+    implements _$$CustomErrorImplCopyWith<$Res> {
+  __$$CustomErrorImplCopyWithImpl(
+      _$CustomErrorImpl _value, $Res Function(_$CustomErrorImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -102,7 +103,7 @@ class __$$AuthErrorImplCopyWithImpl<$Res>
     Object? description = null,
     Object? errorType = null,
   }) {
-    return _then(_$AuthErrorImpl(
+    return _then(_$CustomErrorImpl(
       statusCode: null == statusCode
           ? _value.statusCode
           : statusCode // ignore: cast_nullable_to_non_nullable
@@ -125,8 +126,8 @@ class __$$AuthErrorImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$AuthErrorImpl implements _AuthError {
-  const _$AuthErrorImpl(
+class _$CustomErrorImpl implements _CustomError {
+  const _$CustomErrorImpl(
       {this.statusCode = 0,
       this.message = "Unknown Error",
       this.description = "",
@@ -147,14 +148,14 @@ class _$AuthErrorImpl implements _AuthError {
 
   @override
   String toString() {
-    return 'AuthError(statusCode: $statusCode, message: $message, description: $description, errorType: $errorType)';
+    return 'CustomError(statusCode: $statusCode, message: $message, description: $description, errorType: $errorType)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$AuthErrorImpl &&
+            other is _$CustomErrorImpl &&
             (identical(other.statusCode, statusCode) ||
                 other.statusCode == statusCode) &&
             (identical(other.message, message) || other.message == message) &&
@@ -171,16 +172,16 @@ class _$AuthErrorImpl implements _AuthError {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$AuthErrorImplCopyWith<_$AuthErrorImpl> get copyWith =>
-      __$$AuthErrorImplCopyWithImpl<_$AuthErrorImpl>(this, _$identity);
+  _$$CustomErrorImplCopyWith<_$CustomErrorImpl> get copyWith =>
+      __$$CustomErrorImplCopyWithImpl<_$CustomErrorImpl>(this, _$identity);
 }
 
-abstract class _AuthError implements AuthError {
-  const factory _AuthError(
+abstract class _CustomError implements CustomError {
+  const factory _CustomError(
       {final int statusCode,
       final String message,
       final String description,
-      final String errorType}) = _$AuthErrorImpl;
+      final String errorType}) = _$CustomErrorImpl;
 
   @override
   int get statusCode;
@@ -192,6 +193,6 @@ abstract class _AuthError implements AuthError {
   String get errorType;
   @override
   @JsonKey(ignore: true)
-  _$$AuthErrorImplCopyWith<_$AuthErrorImpl> get copyWith =>
+  _$$CustomErrorImplCopyWith<_$CustomErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
