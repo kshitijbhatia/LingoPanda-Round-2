@@ -1,8 +1,10 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart' show UserCredential;
+import 'package:lingopanda_ecom_app/Constants/constants.dart';
 import 'package:lingopanda_ecom_app/features/authentication/data/authentication_api.dart';
 import 'package:lingopanda_ecom_app/features/authentication/domain/authentication_error.dart';
 import 'package:lingopanda_ecom_app/features/authentication/domain/user.dart';
+import 'package:lingopanda_ecom_app/main.dart';
 import 'package:lingopanda_ecom_app/network/network_error.dart';
 
 class AuthenticationRepo {
@@ -19,6 +21,12 @@ class AuthenticationRepo {
       };
 
       final User user = User.fromJson(json);
+
+      sharedPreferences!.setBool(Constants.USER_LOGGED_IN, true);
+      sharedPreferences!.setString(Constants.USER_ID, user.uid);
+      sharedPreferences!.setString(Constants.USER_NAME, user.name);
+      sharedPreferences!.setString(Constants.USER_EMAIL, user.email);
+
       return user;
     }catch(error){
       CustomError authError = handleError(error);
@@ -37,8 +45,14 @@ class AuthenticationRepo {
         'email' : response.user!.email,
         'createdOn' : response.user!.metadata.creationTime.toString(),
       };
-      log("$json");
+
       final User user = User.fromJson(json);
+
+      sharedPreferences!.setBool(Constants.USER_LOGGED_IN, true);
+      sharedPreferences!.setString(Constants.USER_ID, user.uid);
+      sharedPreferences!.setString(Constants.USER_NAME, user.name);
+      sharedPreferences!.setString(Constants.USER_EMAIL, user.email);
+
       return user;
     }catch(error){
       CustomError authError = handleError(error);

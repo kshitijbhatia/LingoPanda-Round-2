@@ -10,15 +10,21 @@ Widget commonText({
   required String text,
   double? fontSize,
   FontWeight? fontWeight,
-  Color? textColor
+  Color? textColor,
+  int? maxLines,
+  TextOverflow? overflow,
+  TextDecoration? textDecoration
 }){
   return Text(
     text,
+    maxLines: maxLines,
     style: TextStyle(
       fontFamily: "Poppins-Regular",
       fontSize: fontSize ?? 16.sp,
       fontWeight: fontWeight ?? FontWeight.w500,
-      color: textColor ?? Colors.black
+      color: textColor ?? Colors.black,
+      overflow: overflow,
+      decoration: textDecoration
     ),
   );
 }

@@ -10,15 +10,16 @@ import 'package:lingopanda_ecom_app/features/products/domain/product.dart';
 class ProductController extends ChangeNotifier{
   List<Product>? products;
 
-  Future<void> getAllProducts() async {
+  Future<List<Product>> getAllProducts() async {
     try{
       final response = await ProductRepo.getAllProducts();
-      products = response;
-      notifyListeners();
+      return response;
+      // notifyListeners();
     }on CustomError catch(error){
       if(error.errorType == "toast"){
         Fluttertoast.showToast(msg: error.description);
       }
+      return [];
     }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lingopanda_ecom_app/Constants/constants.dart';
 import 'package:lingopanda_ecom_app/features/authentication/presentation/controllers/auth_controller.dart';
 import 'package:lingopanda_ecom_app/features/authentication/presentation/screens/login_screen.dart';
 import 'package:lingopanda_ecom_app/features/authentication/presentation/screens/register_screen.dart';
@@ -8,14 +9,18 @@ import 'package:lingopanda_ecom_app/features/products/presentation/controllers/p
 import 'package:lingopanda_ecom_app/features/products/presentation/screens/product_page.dart';
 import 'package:lingopanda_ecom_app/firebase_options.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
+SharedPreferences? sharedPreferences;
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  sharedPreferences = await SharedPreferences.getInstance();
 
   runApp(
     MultiProvider(
@@ -28,8 +33,16 @@ void main() {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  final bool isLoggedIn = sharedPreferences!.containsKey(Constants.USER_LOGGED_IN);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +56,7 @@ class MyApp extends StatelessWidget {
           '/register' : (context) => const RegisterScreen(),
           '/home': (context) => const ProductPage()
         },
-        home: const LoginScreen(),
+        home: isLoggedIn ? const ProductPage() : const LoginScreen(),
       ),
     );
   }

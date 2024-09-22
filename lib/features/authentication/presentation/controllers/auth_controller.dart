@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart' show FirebaseAuthException;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:lingopanda_ecom_app/Constants/constants.dart';
 import 'package:lingopanda_ecom_app/features/authentication/data/authentication_repo.dart';
 import 'package:lingopanda_ecom_app/features/authentication/domain/authentication_error.dart';
 import 'package:lingopanda_ecom_app/features/authentication/domain/user.dart';
